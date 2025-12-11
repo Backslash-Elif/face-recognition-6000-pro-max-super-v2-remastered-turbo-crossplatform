@@ -16,42 +16,71 @@ Ziel war es, eine funktionierende technische Lösung zu erstellen, die den gesam
 # 2. Architektur und Konzept
 
 In diesem Kapitel wird das technische Konzept erläutert.  
-Die eingesetzten Komponenten werden erklärt und ihr Zusammenspiel dargestellt.
+Die eingesetzten Komponenten werden erklärt und unser Zusammenspiel dargestellt.
 
 ## 2.1 Systemübersicht
 
-```mermaid
 flowchart LR
-    A[Komponente 1] --> B[Komponente 2]
-    B --> C[Komponente 3]
-```
+    A[Input S3 Bucket<br>Upload eines Bildes] --> B[AWS Lambda<br>Event Trigger]
+    B --> C[Amazon Rekognition<br>RecognizeCelebrities]
+    C --> D[Output S3 Bucket<br>JSON Ergebnis]
 
 ## 2.2 Komponentenbeschreibung
 
-| Komponente | Beschreibung | Zweck |
-|-----------|--------------|-------|
-| Komponente 1 | Erklärung | Aufgabe |
-| Komponente 2 | Erklärung | Aufgabe |
-| Komponente 3 | Erklärung | Aufgabe |
+|Komponente	| Beschreibung |	Zweck |
+|-----------|--------------|--------|
+|Input S3 Bucket | Speichert hochgeladene Bilder |	Startet die Lambda-Funktion beim Upload|
+|AWS Lambda Funktion |	Arbeitet das Bild auf, ruft Rekognition auf |Automatische Verarbeitung ohne Server |
+|Amazon Rekognition |	Analyse des Bildes, erkennt bekannte Personen	|Liefert Namen + Confidence-Werte|
+Output S3 Bucket |	Speichert das Ergebnis als JSON	| Dient als Output-Speicher für die Analyse|
 
 ---
 
 # 3. Umsetzung
+# 3. Umsetzung
 
-Dieses Kapitel dokumentiert die Implementierung.
+Dieses Kapitel beschreibt die technische Umsetzung des Projekts. Dazu gehören der Aufbau der Cloud-Ressourcen, die Erstellung der Lambda-Funktion, die Automatisierung mittels Skripten sowie die getestete Funktionsweise.
 
-## 3.1 Implementierungsdetails
+## 3.1 Aufbau der Cloud-Ressourcen
+Hier wird erklärt, welche AWS-Ressourcen erstellt wurden und wie sie miteinander verbunden sind.
+- Erstellung der S3 Buckets (Input / Output)
+- Erstellen der IAM-Rolle für Lambda
+- Definition der Berechtigungen
+- Konfiguration des S3-Event-Triggers
 
-```code
-# Beispielcode
-print("Hallo Welt")
-```
+## 3.2 Lambda-Funktion
+Beschreibung der Funktionalität der Lambda-Funktion.
+- Trigger durch S3-Upload
+- Laden des Bildes
+- Aufruf von Amazon Rekognition (RecognizeCelebrities)
+- Verarbeitung des Resultats
+- Schreiben der JSON-Ausgabe in den Output-Bucket
 
-## 3.2 Wichtige Entscheidungen
+## 3.3 Init-Script (Automatische Erstellung)
+Dokumentation des Scripts, das alle Ressourcen automatisch anlegt.
+- Zweck des Scripts
+- Ablauf und Logik
+- Vorteile der Automatisierung
 
-- Entscheidung 1 – Begründung  
-- Entscheidung 2 – Begründung  
-- Entscheidung 3 – Begründung  
+## 3.4 Test-Script (Automatisierte Prüfung)
+Beschreibung des Scripts, das Bilder hochlädt und Ergebnisse abruft.
+- Upload des Testbildes
+- Polling/Wait-Mechanismus bis zur Auswertung
+- Download der JSON-Ausgabe
+- Ausgabe der erkannten Personen
+
+## 3.5 Wichtige technische Entscheidungen
+- Entscheidung 1 – warum diese Architektur gewählt wurde
+- Entscheidung 2 – warum Rekognition RecognizeCelebrities
+- Entscheidung 3 – warum Automation via CLI/Shell statt manuell im Console-UI
+
+## 3.6 Codebeispiele
+Hier kannst du später Ausschnitte einfügen, z. B. die Lambda-Funktion oder relevante Befehle.
+
+## 3.7 Herausforderungen während der Umsetzung
+- Beispiel: IAM-Berechtigungen funktionierten anfangs nicht korrekt
+- Beispiel: Lambda-Timeout / zu grosse Bilder
+- Beispiel: JSON-Struktur testen
 
 ---
 
