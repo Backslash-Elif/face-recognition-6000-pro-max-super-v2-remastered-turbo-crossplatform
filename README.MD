@@ -7,9 +7,9 @@ Sie ist so strukturiert, dass eine aussenstehende Fachperson den Ablauf vollstä
 
 # 1. Einleitung
 
-Dieses Projekt wurde im Rahmen des Moduls umgesetzt.  
-Ziel war es, eine funktionierende technische Lösung zu entwickeln und diese nachvollziehbar zu dokumentieren.  
-Die Dokumentation bildet den gesamten Prozess ab – von der Idee über die Umsetzung bis zur Evaluation.
+Dieses Projekt wurde im Rahmen des Moduls 346 umgesetzt und behandelt die Entwicklung eines einfachen FaceRecognition-Services in der AWS-Cloud. Dabei wird ein Bild in einen S3-Bucket hochgeladen, automatisch durch eine Lambda-Funktion verarbeitet und mit Amazon Rekognition analysiert. Das Ergebnis – die erkannten Personen und deren Wahrscheinlichkeit – wird als JSON-Datei in einem zweiten Bucket gespeichert.
+
+Ziel war es, eine funktionierende technische Lösung zu erstellen, die den gesamten Cloud-Ablauf demonstriert und gleichzeitig die Kriterien des Moduls erfüllt: eine klare Architektur, eine automatisierte Bereitstellung mittels Init-Script, eine korrekte Implementierung der Lambda-Funktion sowie aussagekräftige Tests mit Dokumentation.
 
 ---
 
